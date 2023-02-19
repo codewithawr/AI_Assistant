@@ -3,7 +3,7 @@ import openai
 class GPT_AI:
     def __init__(self) -> None:
         # Set up OpenAI API key
-        openai.api_key = "YOUR-API-KEY-FROM-OPENAI"
+        openai.api_key = "YOUR-API-KEY-FROM-OPENAI" # Go to "https://platform.openai.com/account/api-keys" Create new secret key 
 
         # Initialize the conversation history list
         self.conversation_history = []
