@@ -1,6 +1,6 @@
 import openai
 
-class GPT_AI:
+class davinci_AI:
     def __init__(self) -> None:
         # Set up OpenAI API key
         openai.api_key = "YOUR-API-KEY-FROM-OPENAI" # Go to "https://platform.openai.com/account/api-keys" Create new secret key 
@@ -8,16 +8,16 @@ class GPT_AI:
         # Initialize the conversation history list
         self.conversation_history = []
 
-        # Set up OpenAI GPT-3 model
+        # Set up OpenAI davinci model
         self.model_engine = "text-davinci-002"
-        self.prompt = "Conversation with OpenAI's GPT-3 AI:\n"
+        self.prompt = "Conversation with OpenAI's davinci AI:\n"
 
-    # Create function to generate response from GPT-3 model
+    # Create function to generate response from davinci model
     def generate_response(self, prompt, model_engine, conversation_history):
         # Concatenate the prompt and conversation history
         conversation_text = prompt + '\n'.join(conversation_history)
         
-        # Generate response using GPT-3 model
+        # Generate response using davinci model
         response = openai.Completion.create(
             engine=model_engine,
             prompt=conversation_text,
@@ -33,12 +33,12 @@ class GPT_AI:
         return generated_text
 
     # Start the chat loop  
-    def GPT_Request(self, query):
+    def Request_davinci(self, query):
         
         # Add user input to conversation history
         self.conversation_history.append('User: ' + query)
 
-        # Generate response using GPT-3 model
+        # Generate response using davinci model
         generated_text = self.generate_response(self.prompt, self.model_engine, self.conversation_history)
 
         # Add generated text to conversation history
@@ -49,9 +49,9 @@ class GPT_AI:
 
 
 if __name__ == '__main__':
-    question = GPT_AI()
-    print(question.GPT_Request('hello'))
-    print(question.GPT_Request('Remember i have a meeting tomorrow on 3 pm'))
-    print(question.GPT_Request('Remember to i have a Quize on Monday'))
-    print(question.GPT_Request('Gave me list of events i tolde you to remember '))
+    question = davinci_AI()
+    print(question.Request_davinci('hello'))
+    print(question.Request_davinci('Remember i have a meeting tomorrow on 3 pm'))
+    print(question.Request_davinci('Remember to i have a Quize on Monday'))
+    print(question.Request_davinci('Gave me list of events i tolde you to remember '))
     print(question.conversation_history)
