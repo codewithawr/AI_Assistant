@@ -50,7 +50,6 @@ class davinci_AI:
 
 if __name__ == '__main__':
     question = davinci_AI()
-    print(question.Request_davinci('hello'))
     print(question.Request_davinci('Remember i have a meeting tomorrow on 3 pm'))
     print(question.Request_davinci('Remember to i have a Quize on Monday'))
     print(question.Request_davinci('Gave me list of events i tolde you to remember '))
