@@ -46,6 +46,7 @@ class datahandler:
         '''
         Adds data to a table.
         '''
+        print(args)
         with self.con:
             cursor = self.con.cursor()
             query = f"INSERT INTO {to_table} ({', '.join(self.Tables[to_table])}) VALUES (?, ?)"
