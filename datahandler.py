@@ -1,7 +1,7 @@
 import sqlite3 as sl
 
 class datahandler:
-    def dit_str(self, d):
+    def dit_str(self, d:dict):
         g = ''
         for i in d:
             g = g + f"\n{i} {d.get(i)},"
@@ -24,11 +24,10 @@ class datahandler:
             if ('columns' not in kwargs) or (self.table_exist(kwargs['Table_name'])):
                 if self.table_exist(kwargs['Table_name']):
                     self.Tables[kwargs['Table_name']] = {item[1]: item[2] for item in self.get_columns(kwargs['Table_name'])[1:]}
-
             elif 'columns' in kwargs:
                 if not self.table_exist(kwargs['Table_name']):
                     self.Tables[kwargs['Table_name']] =  kwargs['columns']
-                    self.create_table(kwargs['Table_name'], kwargs['Table_name'])
+                    self.create_table(kwargs['Table_name'], kwargs['columns'])
 
     def create_table(self, Table_name: str, columns: dict):
         '''
@@ -41,13 +40,13 @@ class datahandler:
         self.Tables[Table_name] = columns
         if not self.table_exist(Table_name):
             with self.con:
-                print(f"CREATE TABLE {Table_name} (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,{self.dit_str(columns)[:-1]});")
                 self.con.execute(f"CREATE TABLE {Table_name} (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,{self.dit_str(columns)[:-1]});")
         
     def add_data(self, to_table: str, *args):
         '''
         Adds data to a table.
         '''
+        print(args)
         with self.con:
             cursor = self.con.cursor()
             query = f"INSERT INTO {to_table} ({', '.join(self.Tables[to_table])}) VALUES (?, ?)"
@@ -82,11 +81,12 @@ class datahandler:
 
 if __name__ == '__main__':
     dh = datahandler
-    temp = dh('hh.db', Table_name='hello', columns={'name': 'TEXT', 'age': 'INTEGER'})
-    temp.add_data('hello',('Kreem', 22))
-    temp.get(from_table='hello')
-    temp.table_exist('hello')
-    temp.get_columns(Table='hello')
+
+    temp = dh('Temp.db', Table_name='Temp', columns={'name': 'TEXT', 'age': 'INTEGER'})
+    temp.add_data('Temp',('Kreem', 22))
+    temp.get(from_table='Temp')
+    temp.table_exist('Temp')
+    temp.get_columns(Table='Temp')
     temp.create_table('dir', {'fig':'TEXT', 'start':'INTEGER'})
     temp.add_data('dir', ('c/windows/scripts', 3.265), ('d/softwer/win32', 1.29))
     temp.get(from_table='dir')
