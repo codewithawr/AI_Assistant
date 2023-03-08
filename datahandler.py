@@ -8,7 +8,6 @@ class datahandler:
         return g
     
     def __init__(self, file, **kwargs):
-        print(1)
         self.file = file
         self.con = sl.connect(file)
         if 'Table_name' in kwargs:
@@ -25,17 +24,15 @@ class datahandler:
 
     def create_table(self, Table_name, columns):
         self.Table = Table_name
-        # self.columns = {item[1]: item[2] for item in self.get_columns()}
         self.columns = columns
         if not self.table_exist(Table_name):
             with self.con:
                 print(f"CREATE TABLE {Table_name} (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,{self.dit_str(columns)[:-1]});")
                 self.con.execute(f"CREATE TABLE {Table_name} (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,{self.dit_str(columns)[:-1]});")
         
-    def add_data(self, args):
+    def add_data(self, *args):
         cursor = self.con.cursor()
         with self.con:
-            print(f"INSERT INTO {self.Table} ({', '.join(self.columns)}) VALUES (?, ?)", args)
             cursor.executemany(f"INSERT INTO {self.Table} ({', '.join(self.columns)}) VALUES (?, ?)", args)
 
     def get(self):
