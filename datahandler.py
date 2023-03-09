@@ -60,6 +60,14 @@ class datahandler:
             data = self.con.execute(f"SELECT* FROM {from_table}")
         return list(data)
     
+    def all_tables(self):
+        '''Returnd lest of Tables
+        '''
+        cursor = self.con.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = cursor.fetchall()
+        return tables
+
     def table_exist(self, name: str):
         '''
         Checks whether a table with the given name exists in the database.
