@@ -5,7 +5,7 @@ instraction = audio()
 ai_return = davinci_AI()
 
 while True:
-    instraction.recode_mic()
+    instraction.recode_mic(listen_for=3)
     print(instraction.return_str())
     print(ai_return.Request_davinci(instraction.return_str()))
 
